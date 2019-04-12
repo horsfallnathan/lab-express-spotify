@@ -66,18 +66,19 @@ app.get('/albums/:artistId', (req, res, next) => {
         }
     );
 });
-// app.get('/tracks/:trackId', (req, res, next) => {
-//     const { trackId } = req.params;
-//     spotifyApi.getAlbumTracks(trackId, { limit: 5, offset: 1 }).then(
-//         function(data) {
-//             console.log('Tryna get track list', data);
-//             // let tracks = data.body.items;
-//             res.render('tracks', { tracks });
-//         },
-//         function(err) {
-//             console.log('Something went wrong!', err);
-//         }
-//     );
-// });
+app.get('/tracks/:albumId', (req, res, next) => {
+    const { albumId } = req.params;
+    spotifyApi.getAlbumTracks(albumId).then(
+        function(data) {
+            console.log('Tryna get track list', data);
+            let tracks = data.body.items;
+            console.log(tracks);
+            res.render('tracks', { tracks });
+        },
+        function(err) {
+            console.log('Something went wrong!', err);
+        }
+    );
+});
 
 app.listen(3000, () => console.log('My Spotify project running on port 3000 🎧 🥁 🎸 🔊'));
